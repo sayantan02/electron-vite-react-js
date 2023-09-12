@@ -1,42 +1,40 @@
-# electron-vite-react
+# electron-vite-react-js
 
-[![awesome-vite](https://awesome.re/mentioned-badge.svg)](https://github.com/vitejs/awesome-vite)
-![GitHub stars](https://img.shields.io/github/stars/caoxiemeihao/vite-react-electron?color=fa6470)
-![GitHub issues](https://img.shields.io/github/issues/caoxiemeihao/vite-react-electron?color=d8b22d)
-![GitHub license](https://img.shields.io/github/license/caoxiemeihao/vite-react-electron)
-[![Required Node.JS >= 14.18.0 || >=16.0.0](https://img.shields.io/static/v1?label=node&message=14.18.0%20||%20%3E=16.0.0&logo=node.js&color=3f893e)](https://nodejs.org/about/releases)
+![GitHub stars](https://img.shields.io/github/stars/sayantan02/electron-vite-react-js?color=fa6470)
+![GitHub issues](https://img.shields.io/github/issues/sayantan02/electron-vite-react-js?color=d8b22d)
+![GitHub license](https://img.shields.io/github/license/sayantan02/electron-vite-react-js)
+[![Required Node.JS ^20.6.0 || >20.6.0](https://img.shields.io/static/v1?label=node&message=20.6.0%20||%20%3E20.6.0&logo=node.js&color=3f893e)](https://nodejs.org/about/releases)
 
-English | [简体中文](README.zh-CN.md)
+## 💳 Credit [electron-vite-react](https://github.com/electron-vite/electron-vite-react)
 
 ## 👀 Overview
 
 📦 Ready out of the box  
-🎯 Based on the official [template-react-ts](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts), project structure will be familiar to you  
 🌱 Easily extendable and customizable  
 💪 Supports Node.js API in the renderer process  
 🔩 Supports C/C++ native addons  
 🐞 Debugger configuration included  
 🖥 Easy to implement multiple windows  
+🧊 Migrated for Javascript
 
 ## 🛫 Quick Setup
 
 ```sh
 # clone the project
-git clone https://github.com/electron-vite/electron-vite-react.git
+git clone https://github.com/sayantan02/electron-vite-react-js.git
 
 # enter the project directory
-cd electron-vite-react
+cd electron-vite-react-js
 
 # install dependency
 npm install
 
 # develop
 npm run dev
+
+#Build for Production
+npm run build
 ```
-
-## 🐞 Debug
-
-![electron-vite-react-debug.gif](/electron-vite-react-debug.gif)
 
 ## 📂 Directory structure
 
@@ -57,33 +55,24 @@ Familiar React application structure, just with `electron` folder on the top :wi
 └── src                                      Renderer source code, your React application
 ```
 
-<!--
-## 🚨 Be aware
 
-This template integrates Node.js API to the renderer process by default. If you want to follow **Electron Security Concerns** you might want to disable this feature. You will have to expose needed API by yourself.  
+## ⚠️ Some Precautions
 
-To get started, remove the option as shown below. This will [modify the Vite configuration and disable this feature](https://github.com/electron-vite/vite-plugin-electron-renderer#config-presets-opinionated).
+This template is containg a file for integrating Node.js API to the renderer process which is turned off by default. If you want to work with the renderer processes use the **Context Bridge** feature for enabling specific features to be open for the main world.
 
-```diff
-# vite.config.ts
+If you don't want to use the Context Bridge feature and expose the whole Node.js API to the renderer process just do the below work. **TIP: 🚨 Don't use ContextIsolation: false in a production Environment**
+```js
+// electron/main/index.js
 
-export default {
-  plugins: [
-    ...
--   // Use Node.js API in the Renderer-process
--   renderer({
--     nodeIntegration: true,
--   }),
-    ...
-  ],
-}
+ipcMain.handle('open-win', (_, arg) => {
+  const childWindow = new BrowserWindow({
+    webPreferences: {
+      preload,
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  })
 ```
--->
-
-## 🔧 Additional features
-
-1. electron-updater 👉 [see docs](src/components/update/README.md)
-1. playwright
 
 ## ❔ FAQ
 
