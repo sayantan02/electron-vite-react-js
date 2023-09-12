@@ -16,6 +16,7 @@
 🐞 Debugger configuration included  
 🖥 Easy to implement multiple windows  
 🧊 Migrated for Javascript
+🧬 Tailwind CSS Added
 
 ## 🛫 Quick Setup
 
