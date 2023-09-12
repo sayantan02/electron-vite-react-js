@@ -15,7 +15,7 @@
 🔩 Supports C/C++ native addons  
 🐞 Debugger configuration included  
 🖥 Easy to implement multiple windows  
-🧊 Migrated for Javascript
+🧊 Migrated for Javascript  
 🧬 Tailwind CSS Added
 
 ## 🛫 Quick Setup
