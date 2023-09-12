@@ -65,14 +65,20 @@ If you don't want to use the Context Bridge feature and expose the whole Node.js
 ```js
 // electron/main/index.js
 
-ipcMain.handle('open-win', (_, arg) => {
-  const childWindow = new BrowserWindow({
+async function createWindow() {
+  win = new BrowserWindow({
+    title: 'Main window',
+    icon: join(process.env.VITE_PUBLIC, 'favicon.ico'),
     webPreferences: {
       preload,
+      // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
+      // Consider using contextBridge.exposeInMainWorld
+      // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
       nodeIntegration: true,
       contextIsolation: false,
     },
-  })
+  });
+}
 ```
 
 ## ❔ FAQ
